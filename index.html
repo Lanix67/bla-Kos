@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blaž Kos | Legenda med legendami</title>
+    <meta name="description" content="Spletna stran posvečena prijatelju Blažu Kosu. Spomini, galerija, zabavne zgodbe, timeline, kviz in še veliko več." />
+    <style>
+        :root{
+            --bg:#0f1115;
+            --bg-soft:#171a21;
+            --card:#1f2430;
+            --card-2:#252b38;
+            --text:#f5f7fb;
+            --muted:#bcc4d6;
+            --line:rgba(255,255,255,0.08);
+            --accent:#ff8a00;
+            --accent-2:#ff3d6e;
+            --accent-3:#5ac8fa;
+            --good:#44d17a;
+            --warn:#ffd166;
+            --shadow:0 12px 35px rgba(0,0,0,0.35);
+            --radius:22px;
+            --radius-sm:14px;
+            --max:1280px;
+            --grad:linear-gradient(135deg,var(--accent),var(--accent-2));
+            --grad-2:linear-gradient(135deg,#1f2937,#111827);
+            --grad-3:linear-gradient(135deg,rgba(255,138,0,0.16),rgba(255,61,110,0.12));
+            --blur: blur(16px);
+        }
+
+        *{
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            margin:0;
+            font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(255,138,0,0.16), transparent 25%),
+                radial-gradient(circle at top right, rgba(90,200,250,0.14), transparent 22%),
+                radial-gradient(circle at bottom, rgba(255,61,110,0.12), transparent 20%),
+                var(--bg);
+            color:var(--text);
+            overflow-x:hidden;
+        }
+
+        a{
+            color:inherit;
+            text-decoration:none;
+        }
+
+        img{
+            max-width:100%;
+            display:block;
+        }
+
+        .container{
+            width:min(var(--max),calc(100% - 32px));
+            margin:0 auto;
+        }
+
+        .section{
+            padding:90px 0;
+            position:relative;
+        }
+
+        .section-title{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:20px;
+            margin-bottom:28px;
+            flex-wrap:wrap;
+        }
+
+        .section-title h2{
+            margin:0;
+            font-size:clamp(1.8rem,4vw,3rem);
+            letter-spacing:-0.03em;
+        }
+
+        .section-title p{
+            margin:0;
+            color:var(--muted);
+            max-width:800px;
+            line-height:1.7;
+        }
+
+        .badge{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            padding:10px 16px;
+            border-radius:999px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid var(--line);
+            color:var(--muted);
+            font-size:0.95rem;
+            backdrop-filter:var(--blur);
+        }
+
+        .navbar{
+            position:sticky;
+            top:0;
+            z-index:1000;
+            backdrop-filter:var(--blur);
+            background:rgba(15,17,21,0.76);
+            border-bottom:1px solid var(--line);
+        }
+
+        .nav-inner{
+            width:min(var(--max),calc(100% - 32px));
+            margin:0 auto;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:14px 0;
+            gap:16px;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-weight:800;
+            letter-spacing:0.02em;
+        }
+
+        .brand-logo{
+            width:42px;
+            height:42px;
+            border-radius:14px;
+            background:var(--grad);
+            display:grid;
+            place-items:center;
+            box-shadow:var(--shadow);
+            font-weight:900;
+        }
+
+        .nav-links{
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:12px;
+        }
+
+        .nav-links a{
+            padding:10px 14px;
+            border-radius:999px;
+            color:var(--muted);
+            transition:0.25s ease;
+            border:1px solid transparent;
+        }
+
+        .nav-links a:hover{
+            color:var(--text);
+            border-color:var(--line);
+            background:rgba(255,255,255,0.04);
+        }
+
+        .hero{
+            min-height:92vh;
+            display:flex;
+            align-items:center;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .hero-grid{
+            display:grid;
+            grid-template-columns:1.15fr 0.85fr;
+            gap:38px;
+            align-items:center;
+        }
+
+        .hero-text h1{
+            margin:0 0 18px;
+            font-size:clamp(2.8rem,7vw,6rem);
+            line-height:0.95;
+            letter-spacing:-0.05em;
+        }
+
+        .hero-text .gradient{
+            background:var(--grad);
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+
+        .hero-text p{
+            margin:0 0 28px;
+            color:var(--muted);
+            font-size:1.08rem;
+            line-height:1.85;
+            max-width:720px;
+        }
+
+        .hero-actions{
+            display:flex;
+            align-items:center;
+            gap:14px;
+            flex-wrap:wrap;
+            margin-bottom:28px;
+        }
+
+        .btn{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+            padding:14px 20px;
+            border-radius:999px;
+            font-weight:700;
+            border:1px solid var(--line);
+            transition:0.25s ease;
+            cursor:pointer;
+            background:transparent;
+            color:var(--text);
+        }
+
+        .btn-primary{
+            background:var(--grad);
+            border:none;
+            box-shadow:0 10px 30px rgba(255,61,110,0.25);
+        }
+
+        .btn:hover{
+            transform:translateY(-2px);
+        }
+
+        .hero-stats{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:16px;
+        }
+
+        .stat{
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--line);
+            border-radius:var(--radius);
+            padding:20px;
+            box-shadow:var(--shadow);
+            backdrop-filter:var(--blur);
+        }
+
+        .stat strong{
+            display:block;
+            font-size:2rem;
+            margin-bottom:8px;
+        }
+
+        .stat span{
+            color:var(--muted);
+            line-height:1.5;
+            font-size:0.95rem;
+        }
+
+        .hero-card{
+            position:relative;
+            border-radius:32px;
+            overflow:hidden;
+            background:var(--grad-2);
+            border:1px solid var(--line);
+            box-shadow:var(--shadow);
+            min-height:620px;
+        }
+
+        .hero-card img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            opacity:0.78;
+        }
+
+        .hero-overlay{
+            position:absolute;
+            inset:0;
+            background:
+                linear-gradient(to top, rgba(15,17,21,0.9), rgba(15,17,21,0.15)),
+                linear-gradient(to right, rgba(255,138,0,0.12), transparent 35%);
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-end;
+            padding:28px;
+        }
+
+        .hero-overlay .mini{
+            color:var(--warn);
+            font-weight:800;
+            margin-bottom:10px;
+            text-transform:uppercase;
+            letter-spacing:0.12em;
+            font-size:0.85rem;
+        }
+
+        .hero-overlay h3{
+            margin:0 0 10px;
+            font-size:2rem;
+        }
+
+        .hero-overlay p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.7;
+        }
+
+        .floating{
+            position:absolute;
+            border-radius:22px;
+            border:1px solid rgba(255,255,255,0.08);
+            background:rgba(255,255,255,0.04);
+            backdrop-filter:var(--blur);
+            box-shadow:var(--shadow);
+            padding:14px 16px;
+            animation:floatY 5.5s ease-in-out infinite;
+        }
+
+        .float-a{
+            top:16%;
+            left:3%;
+        }
+
+        .float-b{
+            right:4%;
+            bottom:16%;
+            animation-delay:1s;
+        }
+
+        .float-c{
+            top:8%;
+            right:20%;
+            animation-delay:2s;
+        }
+
+        @keyframes floatY{
+            0%,100%{ transform:translateY(0); }
+            50%{ transform:translateY(-12px); }
+        }
+
+        .grid-2{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:24px;
+        }
+
+        .grid-3{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:24px;
+        }
+
+        .grid-4{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:20px;
+        }
+
+        .card{
+            background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+            border:1px solid var(--line);
+            border-radius:var(--radius);
+            padding:26px;
+            box-shadow:var(--shadow);
+            height:100%;
+        }
+
+        .card h3,
+        .card h4{
+            margin-top:0;
+            letter-spacing:-0.02em;
+        }
+
+        .muted{
+            color:var(--muted);
+            line-height:1.75;
+        }
+
+        .chip-wrap{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-top:16px;
+        }
+
+        .chip{
+            padding:9px 14px;
+            border-radius:999px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid var(--line);
+            color:var(--text);
+            font-size:0.92rem;
+        }
+
+        .timeline{
+            position:relative;
+            margin-top:18px;
+        }
+
+        .timeline::before{
+            content:"";
+            position:absolute;
+            left:18px;
+            top:0;
+            bottom:0;
+            width:2px;
+            background:linear-gradient(to bottom, var(--accent), rgba(255,255,255,0.1));
+        }
+
+        .timeline-item{
+            position:relative;
+            padding-left:58px;
+            margin-bottom:28px;
+        }
+
+        .timeline-item:last-child{
+            margin-bottom:0;
+        }
+
+        .timeline-dot{
+            position:absolute;
+            left:8px;
+            top:8px;
+            width:22px;
+            height:22px;
+            border-radius:50%;
+            background:var(--grad);
+            box-shadow:0 0 0 6px rgba(255,138,0,0.12);
+        }
+
+        .timeline-item h4{
+            margin:0 0 8px;
+            font-size:1.15rem;
+        }
+
+        .timeline-item p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.75;
+        }
+
+        .story-list{
+            display:grid;
+            gap:18px;
+        }
+
+        .story{
+            position:relative;
+            padding:22px 22px 22px 66px;
+            border-radius:var(--radius-sm);
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--line);
+        }
+
+        .story .emoji{
+            position:absolute;
+            left:20px;
+            top:20px;
+            font-size:1.5rem;
+        }
+
+        .story h4{
+            margin:0 0 8px;
+        }
+
+        .story p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.7;
+        }
+
+        .gallery-grid{
+            display:grid;
+            grid-template-columns:repeat(5,1fr);
+            gap:14px;
+        }
+
+        .gallery-item{
+            position:relative;
+            overflow:hidden;
+            border-radius:20px;
+            min-height:240px;
+            cursor:pointer;
+            border:1px solid var(--line);
+            background:var(--card);
+        }
+
+        .gallery-item img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            transition:0.45s ease;
+        }
+
+        .gallery-item:hover img{
+            transform:scale(1.08);
+        }
+
+        .gallery-caption{
+            position:absolute;
+            left:0;
+            right:0;
+            bottom:0;
+            padding:16px;
+            background:linear-gradient(to top, rgba(15,17,21,0.94), transparent);
+            font-weight:700;
+        }
+
+        .quote-slider{
+            position:relative;
+            overflow:hidden;
+        }
+
+        .quote-track{
+            display:flex;
+            transition:transform 0.5s ease;
+        }
+
+        .quote{
+            min-width:100%;
+            padding:34px;
+            border-radius:var(--radius);
+            background:var(--grad-3);
+            border:1px solid var(--line);
+        }
+
+        .quote p{
+            margin:0 0 14px;
+            font-size:1.22rem;
+            line-height:1.8;
+        }
+
+        .quote strong{
+            color:var(--warn);
+        }
+
+        .quote-controls{
+            display:flex;
+            gap:12px;
+            margin-top:18px;
+        }
+
+        .quote-btn{
+            width:48px;
+            height:48px;
+            border-radius:50%;
+            border:1px solid var(--line);
+            background:rgba(255,255,255,0.04);
+            color:var(--text);
+            cursor:pointer;
+            font-size:1.2rem;
+        }
+
+        .nickname-board{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:16px;
+        }
+
+        .nickname{
+            background:linear-gradient(135deg, rgba(255,138,0,0.12), rgba(255,61,110,0.12));
+            border:1px solid var(--line);
+            border-radius:18px;
+            padding:20px;
+        }
+
+        .nickname h4{
+            margin:0 0 8px;
+        }
+
+        .nickname p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.7;
+        }
+
+        .fun-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+        }
+
+        .fun-box{
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--line);
+            border-radius:20px;
+            padding:22px;
+            min-height:160px;
+        }
+
+        .fun-box .big{
+            font-size:2rem;
+            margin-bottom:10px;
+            display:block;
+        }
+
+        .fun-box h4{
+            margin:0 0 8px;
+        }
+
+        .fun-box p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.65;
+        }
+
+        .counter-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:18px;
+        }
+
+        .counter{
+            text-align:center;
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--line);
+            border-radius:24px;
+            padding:28px 18px;
+        }
+
+        .counter strong{
+            display:block;
+            font-size:2.4rem;
+            margin-bottom:10px;
+            background:var(--grad);
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+
+        .counter span{
+            color:var(--muted);
+        }
+
+        .memory-wall{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+        }
+
+        .memory-note{
+            padding:22px;
+            border-radius:18px;
+            background:rgba(255,255,255,0.05);
+            border:1px solid var(--line);
+            position:relative;
+            transform:rotate(-1deg);
+        }
+
+        .memory-note:nth-child(2n){
+            transform:rotate(1deg);
+        }
+
+        .memory-note:nth-child(3n){
+            transform:rotate(-2deg);
+        }
+
+        .memory-note h4{
+            margin:0 0 12px;
+        }
+
+        .memory-note p{
+            margin:0;
+            color:var(--muted);
+            line-height:1.75;
+        }
+
+        .table-wrap{
+            overflow:auto;
+            border-radius:22px;
+            border:1px solid var(--line);
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            min-width:760px;
+            background:rgba(255,255,255,0.03);
+        }
+
+        th, td{
+            padding:18px 16px;
+            text-align:left;
+            border-bottom:1px solid var(--line);
+        }
+
+        th{
+            background:rgba(255,255,255,0.04);
+        }
+
+        td{
+            color:var(--muted);
+        }
+
+        .playlist{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:18px;
+        }
+
+        .track{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:16px;
+            padding:18px 20px;
+            border-radius:18px;
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--line);
+        }
+
+        .track small{
+            color:var(--muted);
+            display:block;
+            margin-top:4px;
+        }
+
+        .track .duration{
+            color:var(--warn);
+            font-weight:700;
+        }
+
+        .quiz-box{
+            background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.03));
+            border:1px solid var(--line);
+            border-radius:30px;
+            padding:30px;
+            box-shadow:var(--shadow);
+        }
+
+        .quiz-progress{
+            height:12px;
+            background:rgba(255,255,255,0.08);
+            border-radius:999px;
+            overflow:hidden;
+            margin-bottom:24px;
+        }
+
+        .quiz-progress-bar{
+            height:100%;
+            width:0%;
+            background:var(--grad);
+            transition:0.3s ease;
+        }
+
+        .quiz-question{
+            font-size:1.5rem;
+            margin:0 0 18px;
+            line-height:1.4;
+        }
+
+        .answers{
+            display:grid;
+            gap:12px;
+        }
+
+        .answer{
+            width:100%;
+            text-align:left;
+            border:none;
+            padding:16px 18px;
+            border-radius:18px;
+            background:rgba(255,255,255,0.05);
+            color:var(--text);
+            border:1px solid var(--line);
+            cursor:pointer;
+            transition:0.25s ease;
+            font-size:1rem;
+        }
+
+        .answer:hover{
+            transform:translateX(4px);
+            border-color:rgba(255,138,0,0.35);
+        }
+
+        .answer.correct{
+            background:rgba(68,209,122,0.16);
+            border-color:rgba(68,209,122,0.5);
+        }
+
+        .answer.wrong{
+            background:rgba(255,61,110,0.16);
+            border-color:rgba(255,61,110,0.5);
+        }
+
+        .quiz-meta{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:16px;
+            margin-top:22px;
+            flex-wrap:wrap;
+            color:var(--muted);
+        }
+
+        .random-machine{
+            display:grid;
+            grid-template-columns:1fr auto;
+            gap:16px;
+            align-items:center;
+        }
+
+        .random-output{
+            min-height:88px;
+            display:flex;
+            align-items:center;
+            padding:18px 20px;
+            border-radius:18px;
+            background:rgba(255,255,255,0.04);
+            border:1px solid var(--line);
+            font-size:1.1rem;
+            line-height:1.7;
+        }
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:18px;
+        }
+
+        .form-grid .full{
+            grid-column:1 / -1;
+        }
+
+        .input{
+            width:100%;
+            border:none;
+            outline:none;
+            padding:16px 18px;
+            border-radius:16px;
+            background:rgba(255,255,255,0.05);
+            border:1px solid var(--line);
+            color:var(--text);
+            font:inherit;
+        }
+
+        textarea.input{
+            min-height:150px;
+            resize:vertical;
+        }
+
+        .footer{
+            padding:40px 0 70px;
+            border-top:1px solid var(--line);
+            color:var(--muted);
+        }
+
+        .footer-inner{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .footer-links{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+
+        .footer-links a{
+            padding:10px 14px;
+            border-radius:999px;
+            border:1px solid var(--line);
+            background:rgba(255,255,255,0.04);
+        }
+
+        .scroll-top{
+            position:fixed;
+            right:18px;
+            bottom:18px;
+            width:54px;
+            height:54px;
+            border-radius:50%;
+            border:none;
+            background:var(--grad);
+            color:white;
+            font-size:1.3rem;
+            cursor:pointer;
+            box-shadow:var(--shadow);
+            opacity:0;
+            visibility:hidden;
+            transition:0.25s ease;
+            z-index:999;
+        }
+
+        .scroll-top.show{
+            opacity:1;
+            visibility:visible;
+        }
+
+        .modal{
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.82);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:18px;
+            opacity:0;
+            visibility:hidden;
+            transition:0.25s ease;
+            z-index:2000;
+        }
+
+        .modal.show{
+            opacity:1;
+            visibility:visible;
+        }
+
+        .modal-content{
+            position:relative;
+            width:min(1000px,100%);
+            border-radius:24px;
+            overflow:hidden;
+            background:#0b0d12;
+            border:1px solid rgba(255,255,255,0.12);
+        }
+
+        .modal-content img{
+            width:100%;
+            max-height:82vh;
+            object-fit:contain;
+            background:#0b0d12;
+        }
+
+        .modal-close{
+            position:absolute;
+            top:14px;
+            right:14px;
+            width:46px;
+            height:46px;
+            border-radius:50%;
+            border:none;
+            background:rgba(255,255,255,0.12);
+            color:white;
+            font-size:1.3rem;
+            cursor:pointer;
+        }
+
+        .sparkles{
+            position:absolute;
+            inset:0;
+            overflow:hidden;
+            pointer-events:none;
+        }
+
+        .sparkles span{
+            position:absolute;
+            width:6px;
+            height:6px;
+            border-radius:50%;
+            background:white;
+            opacity:0.55;
+            animation:twinkle 4s linear infinite;
+        }
+
+        @keyframes twinkle{
+            0%,100%{ transform:translateY(0) scale(1); opacity:0.25; }
+            50%{ transform:translateY(-12px) scale(1.6); opacity:0.95; }
+        }
+
+        .reveal{
+            opacity:0;
+            transform:translateY(30px);
+            transition:0.65s ease;
+        }
+
+        .reveal.show{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        @media (max-width:1100px){
+            .hero-grid,
+            .grid-2,
+            .playlist,
+            .form-grid{
+                grid-template-columns:1fr;
+            }
+
+            .grid-3{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .grid-4,
+            .fun-grid,
+            .counter-grid{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .gallery-grid{
+                grid-template-columns:repeat(3,1fr);
+            }
+
+            .memory-wall{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .nickname-board{
+                grid-template-columns:1fr;
+            }
+
+            .hero-card{
+                min-height:420px;
+            }
+        }
+
+        @media (max-width:720px){
+            .nav-links{
+                display:none;
+            }
+
+            .hero{
+                min-height:auto;
+                padding-top:40px;
+            }
+
+            .hero-stats{
+                grid-template-columns:1fr;
+            }
+
+            .gallery-grid{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .grid-3,
+            .memory-wall,
+            .fun-grid,
+            .counter-grid{
+                grid-template-columns:1fr;
+            }
+
+            .section{
+                padding:70px 0;
+            }
+
+            .random-machine{
+                grid-template-columns:1fr;
+            }
+
+            .float-a,
+            .float-b,
+            .float-c{
+                display:none;
+            }
+        }
+
+        @media (max-width:500px){
+            .gallery-grid{
+                grid-template-columns:1fr;
+            }
+
+            .hero-text h1{
+                font-size:2.5rem;
+            }
+
+            .section-title h2{
+                font-size:2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#domov" class="brand">
+                <div class="brand-logo">BK</div>
+                <span>Blaž Kos</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#o-njem">O njem</a>
+                <a href="#timeline">Timeline</a>
+                <a href="#zgodbe">Zgodbe</a>
+                <a href="#galerija">Galerija</a>
+                <a href="#fun">Fun</a>
+                <a href="#kviz">Kviz</a>
+                <a href="#kontakt">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="domov">
+        <div class="sparkles" aria-hidden="true" id="sparkles"></div>
+
+        <div class="floating float-a">🔥 uradni nivo: legenda</div>
+        <div class="floating float-b">💯 energija: vedno preveč</div>
+        <div class="floating float-c">😎 status: gospod Kos</div>
+
+        <div class="container hero-grid">
+            <div class="hero-text reveal">
+                <div class="badge">Spletna stran za najboljšega kolega</div>
+                <h1>
+                    Blaž <span class="gradient">Kos</span><br />
+                    legenda med legendami
+                </h1>
+                <p>
+                    To je posebna spletna stran, narejena za prijatelja, s katerim se je zgodilo ogromno
+                    smešnih, random in nepozabnih stvari. Tukaj so spomini, vzdevki, slike, mini kviz,
+                    zabavni opisi, galerija in še veliko drugega. Stran lahko še naprej dopolnjuješ in
+                    spreminjaš, kot želiš.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#galerija" class="btn btn-primary">Poglej galerijo</a>
+                    <a href="#kviz" class="btn">Zaženi kviz</a>
+                    <button class="btn" id="playThemeBtn">Poseben gumb</button>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <strong data-target="10">0</strong>
+                        <span>Mest za slike pripravljenih za tvojo galerijo.</span>
+                    </div>
+                    <div class="stat">
+                        <strong data-target="4">0</strong>
+                        <span>Glavni vzdevki skozi različna obdobja prijateljstva.</span>
+                    </div>
+                    <div class="stat">
+                        <strong data-target="999">0</strong>
+                        <span>Približna količina energije in bedarij v vsakem tednu.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-card reveal">
+                <img src="blaz-hero.jpg" alt="Blaž glavna slika" />
+                <div class="hero-overlay">
+                    <div class="mini">glavni profil</div>
+                    <h3>Blaž v svojem elementu</h3>
+                    <p>
+                        Prostor za glavno sliko. Daj sem najboljšo fotko, ki najbolj paše za naslovnico.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" id="o-njem">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Osnovni opis</div>
+                        <h2>Kdo je Blaž?</h2>
+                    </div>
+                    <p>
+                        Tukaj lahko napišeš lep, zabaven ali bolj resen opis. Spodaj sem dal osnovne bloke,
+                        da lahko spreminjaš tekst, dodajaš slike, informacije in razne posebnosti.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card reveal">
+                        <h3>Kratek opis</h3>
+                        <p class="muted">
+                            Blaž je tip človeka, pri katerem nikoli ne veš, ali bo iz dneva nastal normalen
+                            popoldan ali pa zgodba, ki jo boste še leta govorili. Ima svoj stil, svojo energijo
+                            in tisto prisotnost, zaradi katere je z njim skoraj vedno zanimivo.
+                        </p>
+                        <div class="chip-wrap">
+                            <span class="chip">prijatelj</span>
+                            <span class="chip">legenda</span>
+                            <span class="chip">random energija</span>
+                            <span class="chip">gospod Kos</span>
+                            <span class="chip">vedno akcija</span>
+                        </div>
+                    </div>
+
+                    <div class="card reveal">
+                        <h3>Hitri podatki</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Podatek</th>
+                                        <th>Vsebina</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Polno ime</td>
+                                        <td>Blaž Kos</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Domači kraj</td>
+                                        <td>Cankova</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Osnovna šola</td>
+                                        <td>Tu lahko dodaš sam</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Srednja šola</td>
+                                        <td>Tu lahko dodaš sam</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Najbolj znan status</td>
+                                        <td>Gospod Kos</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Uradna energija</td>
+                                        <td>Zelo visoka</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="vzdevki">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Vzdevki skozi čas</div>
+                        <h2>Imena, ki so ostala</h2>
+                    </div>
+                    <p>
+                        Tukaj sem dal glavne vzdevke, ki si jih omenil. Neprimeren vzdevek sem izpustil.
+                    </p>
+                </div>
+
+                <div class="nickname-board">
+                    <div class="nickname reveal">
+                        <h4>Legendica</h4>
+                        <p>
+                            Prvotni klasik. Tak vzdevek, ki je ostal v glavi in takoj pove, da ne gre za navadnega človeka.
+                        </p>
+                    </div>
+
+                    <div class="nickname reveal">
+                        <h4>Cigán</h4>
+                        <p>
+                            Eden izmed tistih vzdevkov, ki je prišel čisto spontano in je postal del vajinega humorja.
+                        </p>
+                    </div>
+
+                    <div class="nickname reveal">
+                        <h4>Gospod Biznisman</h4>
+                        <p>
+                            Faza, ko je zadeva zvenela, kot da ima Blaž tri firme, pet sestankov in nobenega časa.
+                        </p>
+                    </div>
+
+                    <div class="nickname reveal">
+                        <h4>Gospod Kos</h4>
+                        <p>
+                            Končna forma. Elegantno, smešno in dovolj močno, da zveni skoraj uradno.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="timeline">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Časovna premica</div>
+                        <h2>Timeline vajinih momentov</h2>
+                    </div>
+                    <p>
+                        To je lep del strani, ker vse skupaj naredi bolj živo. Leta in opise lahko kasneje
+                        poljubno spremeniš, dodaš datume ali še več dogodkov.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card reveal">
+                        <h3>Glavni mejniki</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>Začetek prijateljstva</h4>
+                                <p>
+                                    Nekje se začne tista zgodba, ko ugotoviš, da bo ta človek zraven pri
+                                    polovici največjih bedarij in tudi pri najboljših spominih.
+                                </p>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>Vzdevki in notranji humor</h4>
+                                <p>
+                                    Obdobje, ko so se začela posebna imena, interni fore in izrazoslovje,
+                                    ki ga razume samo ozek krog ljudi.
+                                </p>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>Poletni random momenti</h4>
+                                <p>
+                                    Nočne ideje, potepanja, smešni podvigi in dogodki, ki so bili v tistem
+                                    trenutku nori, kasneje pa legendarni.
+                                </p>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>Kampiranje</h4>
+                                <p>
+                                    Dvakrat na kampiranju, kjer nastanejo tiste zgodbe, ki se kasneje vedno
+                                    začnejo z besedami: “se spomniš takrat...”
+                                </p>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4>Gospod Kos era</h4>
+                                <p>
+                                    Končna oblika karakterja. Več stila, več samozavesti, enako močna energija.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card reveal">
+                        <h3>Opis lika</h3>
+                        <p class="muted">
+                            Blaž je kombinacija prijatelja, meme materiala, spontane energije in osebe,
+                            s katero navaden večer redko ostane navaden. Če bi ga moral opisati v enem
+                            stavku: vedno obstaja velika možnost, da bo nekaj zanimivega.
+                        </p>
+                        <p class="muted">
+                            Na taki strani lepo paše, da dodaš še dodatne dele: najljubši citat, najbolj
+                            smešen trenutek, največja zmaga, najbolj random ideja, najjači nickname in
+                            “uradno” oceno legendarnega statusa.
+                        </p>
+                        <img src="blaz-portret.jpg" alt="Blaž portret" style="margin-top:20px;border-radius:20px;border:1px solid var(--line);" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="zgodbe">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Najboljši momenti</div>
+                        <h2>Zgodbe, ki ne smejo manjkati</h2>
+                    </div>
+                    <p>
+                        Spodaj sem vključil več zabavnih blokov. Lahko jih menjaš, preurejaš, dodaš nove,
+                        ali pa v vsak blok napišeš še bolj točno verzijo dogodka.
+                    </p>
+                </div>
+
+                <div class="story-list">
+                    <div class="story reveal">
+                        <div class="emoji">🔥</div>
+                        <h4>Peč, ogenj in skoraj neskončno kurjenje</h4>
+                        <p>
+                            Eden od vajinih klasičnih motivov. Tista vrsta spomina, ki jo omeniš in vsi, ki
+                            poznajo zgodbo, že vedo, da bo sledilo smejanje. Lahko tu napišeš svojo bolj natančno
+                            verzijo tega dogodka.
+                        </p>
+                    </div>
+
+                    <div class="story reveal">
+                        <div class="emoji">💦</div>
+                        <h4>Kopanje v fontani ob dveh zjutraj</h4>
+                        <p>
+                            To je dobesedno sekcija, ki jo mora taka stran imeti. Poletje, noč, random ideja
+                            in energija, ki ni dopuščala normalnega vedenja. Eden od momentov, ki zvenijo
+                            izmišljeno, dokler jih ne potrdi cela ekipa.
+                        </p>
+                    </div>
+
+                    <div class="story reveal">
+                        <div class="emoji">🛒</div>
+                        <h4>Voziček akcija</h4>
+                        <p>
+                            Klasičen “to se je zdela dobra ideja v tistem trenutku” dogodek. Ravno dovolj
+                            absurdno, da je ostalo v spominu. Ravno dovolj smešno, da je šlo med legende.
+                        </p>
+                    </div>
+
+                    <div class="story reveal">
+                        <div class="emoji">🏕️</div>
+                        <h4>Kampiranje x2</h4>
+                        <p>
+                            Kampiranje ima vedno poseben status, ker tam nastanejo najboljše interne fore,
+                            najbolj čudne debate in največ spontanih idej. Dodaj lahko posebno galerijo samo
+                            za ta del.
+                        </p>
+                    </div>
+
+                    <div class="story reveal">
+                        <div class="emoji">😆</div>
+                        <h4>Bedarije, ki so postale tradicija</h4>
+                        <p>
+                            To je tisti poseben del prijateljstva, kjer sploh ni več pomembno, kaj točno se
+                            zgodi. Pomembno je samo, da je bila energija prava in da se o tem še danes govori.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="galerija">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Galerija slik</div>
+                        <h2>Prostor za top fotke</h2>
+                    </div>
+                    <p>
+                        Klik na sliko odpre večji pregled. Spodaj sem pripravil 10 mest, točno po tvojih željah.
+                    </p>
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item reveal" data-image="blaz-hero.jpg">
+                        <img src="blaz-hero.jpg" alt="Blaž hero" />
+                        <div class="gallery-caption">Glavna fotka</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-portret.jpg">
+                        <img src="blaz-portret.jpg" alt="Blaž portret" />
+                        <div class="gallery-caption">Portret</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-otroštvo.jpg">
+                        <img src="blaz-otroštvo.jpg" alt="Blaž otroštvo" />
+                        <div class="gallery-caption">Otroštvo</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-ekipa.jpg">
+                        <img src="blaz-ekipa.jpg" alt="Blaž ekipa" />
+                        <div class="gallery-caption">Ekipa</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-fontana.jpg">
+                        <img src="blaz-fontana.jpg" alt="Blaž fontana" />
+                        <div class="gallery-caption">Fontana moment</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-kamp1.jpg">
+                        <img src="blaz-kamp1.jpg" alt="Blaž kamp 1" />
+                        <div class="gallery-caption">Kamp 1</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-kamp2.jpg">
+                        <img src="blaz-kamp2.jpg" alt="Blaž kamp 2" />
+                        <div class="gallery-caption">Kamp 2</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-random1.jpg">
+                        <img src="blaz-random1.jpg" alt="Blaž random 1" />
+                        <div class="gallery-caption">Random 1</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-random2.jpg">
+                        <img src="blaz-random2.jpg" alt="Blaž random 2" />
+                        <div class="gallery-caption">Random 2</div>
+                    </div>
+
+                    <div class="gallery-item reveal" data-image="blaz-random3.jpg">
+                        <img src="blaz-random3.jpg" alt="Blaž random 3" />
+                        <div class="gallery-caption">Random 3</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="citati">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Citati in opis</div>
+                        <h2>Besede, ki pašejo na to stran</h2>
+                    </div>
+                    <p>
+                        Tukaj imaš drsnik s citati. Lahko jih zamenjaš s svojimi originalnimi forami.
+                    </p>
+                </div>
+
+                <div class="quote-slider reveal">
+                    <div class="quote-track" id="quoteTrack">
+                        <div class="quote">
+                            <p>
+                                “Če je večer preveč miren, obstaja velika možnost, da se bo Blaž pojavil
+                                z idejo, ki vse spremeni.”
+                            </p>
+                            <strong>— neuradni opis energije</strong>
+                        </div>
+
+                        <div class="quote">
+                            <p>
+                                “Nekateri ljudje imajo stil. Nekateri imajo humor. Nekateri imajo zgodbe.
+                                Blaž ima vse troje naenkrat.”
+                            </p>
+                            <strong>— prijateljska resnica</strong>
+                        </div>
+
+                        <div class="quote">
+                            <p>
+                                “Vsaka ekipa rabi enega človeka, zaradi katerega navaden dan postane
+                                nepozaben. Tukaj je odgovor.”
+                            </p>
+                            <strong>— uradna razlaga legende</strong>
+                        </div>
+                    </div>
+
+                    <div class="quote-controls">
+                        <button class="quote-btn" id="prevQuote">←</button>
+                        <button class="quote-btn" id="nextQuote">→</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="fun">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Zabavni del</div>
+                        <h2>Fun facts in legendarni elementi</h2>
+                    </div>
+                    <p>
+                        Ta del naredi stran bolj zanimivo, ker ni samo tekst in slike, ampak tudi “character stats”.
+                    </p>
+                </div>
+
+                <div class="fun-grid">
+                    <div class="fun-box reveal">
+                        <span class="big">😎</span>
+                        <h4>Status</h4>
+                        <p>Gospod Kos. Edina pravilna uradna oblika za posebne trenutke.</p>
+                    </div>
+
+                    <div class="fun-box reveal">
+                        <span class="big">🔥</span>
+                        <h4>Energija</h4>
+                        <p>Vedno dovolj visoka, da je možnost spontanega kaosa nadpovprečna.</p>
+                    </div>
+
+                    <div class="fun-box reveal">
+                        <span class="big">🧠</span>
+                        <h4>Ideje</h4>
+                        <p>Nikoli ne veš, ali bodo genijalne ali totalno random. Pogosto oboje.</p>
+                    </div>
+
+                    <div class="fun-box reveal">
+                        <span class="big">😂</span>
+                        <h4>Humor</h4>
+                        <p>Notranji humor, ki ga outsiderji skoraj nikoli ne razumejo.</p>
+                    </div>
+                </div>
+
+                <div style="height:22px;"></div>
+
+                <div class="counter-grid">
+                    <div class="counter reveal">
+                        <strong data-target="1500">0</strong>
+                        <span>približnih ognjenih zgodb</span>
+                    </div>
+                    <div class="counter reveal">
+                        <strong data-target="2">0</strong>
+                        <span>legendarnih kampiranj</span>
+                    </div>
+                    <div class="counter reveal">
+                        <strong data-target="4">0</strong>
+                        <span>glavnih vzdevkov</span>
+                    </div>
+                    <div class="counter reveal">
+                        <strong data-target="100">0</strong>
+                        <span>odstotkov vajbine energije</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="spomini">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Memory wall</div>
+                        <h2>Stena spominov</h2>
+                    </div>
+                    <p>
+                        To so taki listki, kamor lahko napišeš kratke spomine. Zelo dobro izgleda na taki strani.
+                    </p>
+                </div>
+
+                <div class="memory-wall">
+                    <div class="memory-note reveal">
+                        <h4>Spomin #1</h4>
+                        <p>
+                            Tukaj napiši eno kratko zgodbo, ki jo oba takoj prepoznata. Dovolj je že par stavkov.
+                        </p>
+                    </div>
+
+                    <div class="memory-note reveal">
+                        <h4>Spomin #2</h4>
+                        <p>
+                            Dodaj foru, ki jo razumeta samo vidva. To bo naredilo stran še bolj posebno.
+                        </p>
+                    </div>
+
+                    <div class="memory-note reveal">
+                        <h4>Spomin #3</h4>
+                        <p>
+                            Lahko dodaš tudi kak “legend says”, “takrat smo mislili”, ali “to se ne ponovi”.
+                        </p>
+                    </div>
+
+                    <div class="memory-note reveal">
+                        <h4>Spomin #4</h4>
+                        <p>
+                            Dober prostor za fontano, voziček, kampiranje ali kak drug top moment.
+                        </p>
+                    </div>
+
+                    <div class="memory-note reveal">
+                        <h4>Spomin #5</h4>
+                        <p>
+                            Lahko narediš tudi mini šalo, npr. uradni zapis dogodka s popolnoma pretirano resnim tonom.
+                        </p>
+                    </div>
+
+                    <div class="memory-note reveal">
+                        <h4>Spomin #6</h4>
+                        <p>
+                            Še en list za random quote, interni meme ali kar koli, kar spada zraven.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="playlist">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Bonus del</div>
+                        <h2>Fake playlist / soundtrack strani</h2>
+                    </div>
+                    <p>
+                        Tudi to lahko pustiš notri samo kot stil. Lahko pa zamenjaš z vajinimi dejanskimi komadi.
+                    </p>
+                </div>
+
+                <div class="playlist">
+                    <div class="track reveal">
+                        <div>
+                            <strong>Legendica Theme</strong>
+                            <small>neuradna himna začetkov</small>
+                        </div>
+                        <span class="duration">2:47</span>
+                    </div>
+
+                    <div class="track reveal">
+                        <div>
+                            <strong>Gospod Biznisman Intro</strong>
+                            <small>era samozavesti in stila</small>
+                        </div>
+                        <span class="duration">3:13</span>
+                    </div>
+
+                    <div class="track reveal">
+                        <div>
+                            <strong>Fontana Night Mix</strong>
+                            <small>poletni nočni moment</small>
+                        </div>
+                        <span class="duration">3:58</span>
+                    </div>
+
+                    <div class="track reveal">
+                        <div>
+                            <strong>Kampiranje Vol. 2</strong>
+                            <small>ognjišče, šotori, fore</small>
+                        </div>
+                        <span class="duration">4:21</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="generator">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Random generator</div>
+                        <h2>Naključni Blaž moment</h2>
+                    </div>
+                    <p>
+                        Gumb generira random stavek. To je dober dodatek, da stran ni statična.
+                    </p>
+                </div>
+
+                <div class="card reveal">
+                    <div class="random-machine">
+                        <div class="random-output" id="randomOutput">
+                            Klikni gumb in dobiš naključni opis, quote ali “uradno” oceno situacije.
+                        </div>
+                        <button class="btn btn-primary" id="randomBtn">Generiraj</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="kviz">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Interaktivno</div>
+                        <h2>Mini kviz o Blažu</h2>
+                    </div>
+                    <p>
+                        Tu imaš del z JavaScript kvizom. Če hočeš, lahko vprašanja kasneje spremeniš v čisto vajina.
+                    </p>
+                </div>
+
+                <div class="quiz-box reveal">
+                    <div class="quiz-progress">
+                        <div class="quiz-progress-bar" id="quizBar"></div>
+                    </div>
+
+                    <h3 class="quiz-question" id="quizQuestion">Nalagam vprašanje...</h3>
+
+                    <div class="answers" id="quizAnswers"></div>
+
+                    <div class="quiz-meta">
+                        <span id="quizStatus">Vprašanje 1 / 5</span>
+                        <strong id="quizScore">Točke: 0</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="bonus-tabela">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Še več vsebine</div>
+                        <h2>Uradna ocena legendarnih kategorij</h2>
+                    </div>
+                    <p>
+                        Samo za zabavo. Takšne tabele dobro zapolnijo spletno stran in izgledajo kul.
+                    </p>
+                </div>
+
+                <div class="table-wrap reveal">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kategorija</th>
+                                <th>Ocena</th>
+                                <th>Opis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Random ideje</td>
+                                <td>10/10</td>
+                                <td>Vedno obstaja možnost, da iz navadnega dne nastane zgodba.</td>
+                            </tr>
+                            <tr>
+                                <td>Vzdevki</td>
+                                <td>9/10</td>
+                                <td>Močni, zapomljivi in pogosto zelo interni.</td>
+                            </tr>
+                            <tr>
+                                <td>Energija</td>
+                                <td>11/10</td>
+                                <td>Uradno nad omejitvami normalnega večera.</td>
+                            </tr>
+                            <tr>
+                                <td>Prijateljski status</td>
+                                <td>10/10</td>
+                                <td>To je dejansko razlog, da taka stran sploh obstaja.</td>
+                            </tr>
+                            <tr>
+                                <td>Spomini</td>
+                                <td>Neskončno</td>
+                                <td>Največja vrednost cele zgodbe so skupni momenti.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="kontakt">
+            <div class="container">
+                <div class="section-title reveal">
+                    <div>
+                        <div class="badge">Zaključek strani</div>
+                        <h2>Sporočilo za Blaža</h2>
+                    </div>
+                    <p>
+                        Ta del lahko uporabiš za zaključno posvetilo. Lahko ostane kot vizualni zaključek strani.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card reveal">
+                        <h3>Posvetilo</h3>
+                        <p class="muted">
+                            Blaž, ta stran je narejena zato, ker obstajajo ljudje, ki pustijo za sabo dovolj
+                            smeha, spominov in momentov, da si zaslužijo svojo posebno internetno stran. Naj
+                            ostane kot digitalni spomin na vse legendarne čase in kot opomnik, da so najboljši
+                            trenutki pogosto najbolj random.
+                        </p>
+                        <p class="muted">
+                            Podpis: najboljši kolega.
+                        </p>
+                    </div>
+
+                    <div class="card reveal">
+                        <h3>Mini forma za izgled</h3>
+                        <form class="form-grid" onsubmit="event.preventDefault(); fakeSend();">
+                            <input class="input" type="text" placeholder="Ime" />
+                            <input class="input" type="text" placeholder="Vzdevek" />
+                            <input class="input full" type="text" placeholder="Naslov sporočila" />
+                            <textarea class="input full" placeholder="Napiši sporočilo za Blaža..."></textarea>
+                            <button class="btn btn-primary full" type="submit">Pošlji sporočilo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div>
+                <strong>Blaž Kos fan page</strong>
+                <div style="margin-top:8px;">Narejeno z veliko spomini, humorja in kode.</div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#domov">Domov</a>
+                <a href="#galerija">Galerija</a>
+                <a href="#kviz">Kviz</a>
+                <a href="#kontakt">Zaključek</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" id="scrollTopBtn">↑</button>
+
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">✕</button>
+            <img src="" alt="Povečana slika" id="modalImg" />
+        </div>
+    </div>
+
+    <script>
+        const sparkles = document.getElementById("sparkles");
+
+        for(let i = 0; i < 28; i++){
+            const s = document.createElement("span");
+            s.style.left = Math.random() * 100 + "%";
+            s.style.top = Math.random() * 100 + "%";
+            s.style.animationDelay = (Math.random() * 4) + "s";
+            s.style.animationDuration = (3 + Math.random() * 3) + "s";
+            sparkles.appendChild(s);
+        }
+
+        const reveals = document.querySelectorAll(".reveal");
+
+        const revealObserver = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    entry.target.classList.add("show");
+                }
+            });
+        }, { threshold: 0.14 });
+
+        reveals.forEach(item => revealObserver.observe(item));
+
+        const countEls = document.querySelectorAll("[data-target]");
+
+        const countObserver = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    const el = entry.target;
+                    const target = +el.getAttribute("data-target");
+                    let current = 0;
+                    const increment = Math.max(1, Math.floor(target / 80));
+
+                    const timer = setInterval(()=>{
+                        current += increment;
+                        if(current >= target){
+                            el.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            el.textContent = current;
+                        }
+                    }, 18);
+
+                    countObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        countEls.forEach(el => countObserver.observe(el));
+
+        const randomTexts = [
+            "Uradna razglasitev: današnji dan je primeren za novo bedarijo.",
+            "Blaž status: aktiven. Možnost spontane fore: zelo visoka.",
+            "Tole je točno tisti moment, ko se začne zgodba, ki jo boste še dolgo omenjali.",
+            "Če je vse preveč mirno, je to samo zatišje pred random idejo.",
+            "Legenda ni naziv. Legenda je stanje.",
+            "Današnji vibe: Gospod Kos z dodatnim bonus efektom.",
+            "Notranji humor je tako močan, da ga normalni ljudje težko spremljajo.",
+            "Obstaja 87% možnost, da bo iz navadne situacije nastal hit spomin.",
+            "Sistem sporoča: energija ostaja previsoka za običajen večer.",
+            "Random generator je potrdil: prijateljstvo top nivoja."
+        ];
+
+        const randomOutput = document.getElementById("randomOutput");
+        const randomBtn = document.getElementById("randomBtn");
+
+        randomBtn.addEventListener("click", ()=>{
+            const random = randomTexts[Math.floor(Math.random() * randomTexts.length)];
+            randomOutput.textContent = random;
+        });
+
+        const quoteTrack = document.getElementById("quoteTrack");
+        const prevQuote = document.getElementById("prevQuote");
+        const nextQuote = document.getElementById("nextQuote");
+        let quoteIndex = 0;
+        const quoteTotal = document.querySelectorAll(".quote").length;
+
+        function renderQuote(){
+            quoteTrack.style.transform = `translateX(-${quoteIndex * 100}%)`;
+        }
+
+        prevQuote.addEventListener("click", ()=>{
+            quoteIndex = (quoteIndex - 1 + quoteTotal) % quoteTotal;
+            renderQuote();
+        });
+
+        nextQuote.addEventListener("click", ()=>{
+            quoteIndex = (quoteIndex + 1) % quoteTotal;
+            renderQuote();
+        });
+
+        setInterval(()=>{
+            quoteIndex = (quoteIndex + 1) % quoteTotal;
+            renderQuote();
+        }, 6000);
+
+        const galleryItems = document.querySelectorAll(".gallery-item");
+        const imageModal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImg");
+        const closeModal = document.getElementById("closeModal");
+
+        galleryItems.forEach(item=>{
+            item.addEventListener("click", ()=>{
+                const image = item.getAttribute("data-image");
+                modalImg.src = image;
+                imageModal.classList.add("show");
+            });
+        });
+
+        closeModal.addEventListener("click", ()=>{
+            imageModal.classList.remove("show");
+        });
+
+        imageModal.addEventListener("click", (e)=>{
+            if(e.target === imageModal){
+                imageModal.classList.remove("show");
+            }
+        });
+
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.addEventListener("scroll", ()=>{
+            if(window.scrollY > 500){
+                scrollTopBtn.classList.add("show");
+            } else {
+                scrollTopBtn.classList.remove("show");
+            }
+        });
+
+        scrollTopBtn.addEventListener("click", ()=>{
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        const quizData = [
+            {
+                question: "Kateri vzdevek je bil eden izmed prvih?",
+                answers: ["Legendica", "Profesor", "Direktor", "Šerif"],
+                correct: 0
+            },
+            {
+                question: "Kaj od tega je omenjen legendarni moment?",
+                answers: ["Vožnja s čolnom", "Skok s strehe", "Kopanje v fontani ponoči", "Tekma v šahu"],
+                correct: 2
+            },
+            {
+                question: "Kateri naziv zveni najbolj uradno?",
+                answers: ["Gospod Kos", "Mali šef", "Glavni stric", "Mojster severa"],
+                correct: 0
+            },
+            {
+                question: "Kolikokrat je bilo omenjeno kampiranje?",
+                answers: ["Enkrat", "Dvakrat", "Petkrat", "Nikoli"],
+                correct: 1
+            },
+            {
+                question: "Kaj ta stran najbolj predstavlja?",
+                answers: ["Šolski projekt", "Novice", "Spomine in prijateljstvo", "Spletno trgovino"],
+                correct: 2
+            }
+        ];
+
+        const quizQuestion = document.getElementById("quizQuestion");
+        const quizAnswers = document.getElementById("quizAnswers");
+        const quizStatus = document.getElementById("quizStatus");
+        const quizScore = document.getElementById("quizScore");
+        const quizBar = document.getElementById("quizBar");
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        function renderQuiz(){
+            const q = quizData[currentQuestion];
+            quizQuestion.textContent = q.question;
+            quizAnswers.innerHTML = "";
+            quizStatus.textContent = `Vprašanje ${currentQuestion + 1} / ${quizData.length}`;
+            quizScore.textContent = `Točke: ${score}`;
+            quizBar.style.width = `${(currentQuestion / quizData.length) * 100}%`;
+            answered = false;
+
+            q.answers.forEach((answer, index)=>{
+                const btn = document.createElement("button");
+                btn.className = "answer";
+                btn.textContent = answer;
+                btn.addEventListener("click", ()=> selectAnswer(btn, index));
+                quizAnswers.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(button, index){
+            if(answered) return;
+            answered = true;
+
+            const q = quizData[currentQuestion];
+            const buttons = document.querySelectorAll(".answer");
+
+            buttons.forEach((btn, i)=>{
+                btn.disabled = true;
+                if(i === q.correct){
+                    btn.classList.add("correct");
+                }
+            });
+
+            if(index === q.correct){
+                score++;
+            } else {
+                button.classList.add("wrong");
+            }
+
+            quizScore.textContent = `Točke: ${score}`;
+
+            setTimeout(()=>{
+                currentQuestion++;
+                if(currentQuestion < quizData.length){
+                    renderQuiz();
+                } else {
+                    finishQuiz();
+                }
+            }, 1100);
+        }
+
+        function finishQuiz(){
+            quizBar.style.width = "100%";
+            quizQuestion.textContent = "Kviz zaključen!";
+            quizAnswers.innerHTML = `
+                <div class="answer correct" style="cursor:default;">
+                    Končni rezultat: ${score} / ${quizData.length}
+                </div>
+                <button class="answer" onclick="restartQuiz()">Igraj znova</button>
+            `;
+            quizStatus.textContent = "Konec";
+            quizScore.textContent = `Točke: ${score}`;
+        }
+
+        function restartQuiz(){
+            currentQuestion = 0;
+            score = 0;
+            renderQuiz();
+        }
+
+        renderQuiz();
+
+        function fakeSend(){
+            alert("Sporočilo je bilo 'poslano' samo za izgled strani 😄");
+        }
+
+        const playThemeBtn = document.getElementById("playThemeBtn");
+        let themeMode = false;
+
+        playThemeBtn.addEventListener("click", ()=>{
+            themeMode = !themeMode;
+
+            if(themeMode){
+                document.documentElement.style.setProperty("--accent", "#7c3aed");
+                document.documentElement.style.setProperty("--accent-2", "#06b6d4");
+                document.documentElement.style.setProperty("--accent-3", "#22c55e");
+                playThemeBtn.textContent = "Vrni original stil";
+            } else {
+                document.documentElement.style.setProperty("--accent", "#ff8a00");
+                document.documentElement.style.setProperty("--accent-2", "#ff3d6e");
+                document.documentElement.style.setProperty("--accent-3", "#5ac8fa");
+                playThemeBtn.textContent = "Poseben gumb";
+            }
+        });
+
+        const navAnchors = document.querySelectorAll('a[href^="#"]');
+
+        navAnchors.forEach(link=>{
+            link.addEventListener("click", function(e){
+                const id = this.getAttribute("href");
+                const target = document.querySelector(id);
+                if(target){
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior:"smooth", block:"start" });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
